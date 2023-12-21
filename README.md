@@ -35,15 +35,18 @@ The dataset can then be separated in 3: the young actors, still in their earlier
 An actor success is a tricky metric to discover, considering every actor has its own interpretation of success . 
 The popularity of an actor as computed by TmdB fluctuates in time and is impacted by the number of views for the day as well as the previous day score. If we look at the metric sampled recently and plot it against the release date of an actor most recent movie, it is clear that more recent movies produce more popular actors. 
 
-<div style="text-align: center;">
-  <img src="assets/plots/tmdb_actor_pop_recent_release.html" width="800" height="500"></img>
-</div>
+
+<p align="center">
+  <img src="assets/plots/tmdb_actor_pop_release.png" alt="Image Alt Text" width="600" height="300">
+</p>
+
+
 
 This can be related to the effect of trend. In fact, one can observe a huge peak in TmdB movie popularity in the very recent months.
 
-<div style="text-align: center;">
-  <img src="assets/plots/tmdb_movie_pop_release.html" width="800" height="500"></img>
-</div>
+<p align="center">
+  <img src="assets/plots/tmdb_movie_pop_release.png" alt="Image Alt Text" width="650" height="300">
+</p>
 
 
 To mitigate the effect of trend, the actor popularity metric was normalized using a "within group" z-score normailzation. Each actor improved popularity score is relative to the mean and standard deviation of the scores of actors whose most recent movie was released in the same year range.
@@ -73,8 +76,11 @@ The formula defining the general awards metric is simply a weighted sum, with mo
 $$ awards = 2*oscar_wins + oscar_nomination + 2*cc_act + 2* gg_act + cc_supp_act + gg_sup_acc$$
 where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations received by the Oscars, $cc_act$ and $gg_act$ are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and $cc_supp_act$ and $gg_sup_acc$ are the Best-Supporting Actors awards from the same organizations.
 
-### Adapt formula
-### How many actors in each awards dataset
+<p align="center">
+  <img src="assets/plots/awards.jpg" alt="Image Alt Text" width="600" height="300">
+</p>
+
+### Final success score:
 
 The final success score is computed as follow:
 
