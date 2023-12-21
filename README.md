@@ -18,6 +18,17 @@ The focus of our analysis being Hollywood industry, the movie database was filte
 
 Furthemore, the actors dataset was also filtered to remove actors who have ended their career more than 20 years ago, in an attempt to keep the results are in line with actors of our generation. This guide should be relevent to the present industry landscape.
 
+After this filtering, ??? actors remain.
+
+
+## How to represent the timeline of an actor's career ?
+
+Our goal thoughout this analysis is to understand how each role played by an actor or the combination of those roles may have impacted his overall sucess and recognition. The definition of this success is explained later. The career trajectories and the distribution of role features are unique for each actor. As a result, it would be poor choice to solely base our analysis on the average of those features, such as the average genre, average movie budget or average role importance. Instead, we need to consider the evolution of those features in time to truly understand their impact on success. For this reason, we decided to divide the career of actors in 3 time spans: the Early Years, the Mid-Career and the Late Career.
+The career of an actor extends from the release date of the first movie he played in to the last movie. We choose to define the Early Years of the career as the first 20 years. The following 20 years (between year 21 and 40) constitute the Mid-Career and every other movie released after that are part of the actor Late-Career stage.
+The dataset can then be separated in 3: the young actors, still in their earlier years, the experienced actors in their Mid-Career and the very experienced actors in their Late-Career. During our analysis, we will consider those 3 career stages indepently.
+
+### Plot 
+
 
 ## How to measure an actor success?
 
@@ -34,42 +45,41 @@ To mitigate the effect of trend, the actor popularity metric was normalized usin
 
 ### Plot improved tmdB actor pop
 
-To compliment this time fluctuating indicator, a second actor popularity metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 15000 most popular American actors, as the percentage of people in the United States who have heard of a them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
-Since this measurement only applies to 1500 actors out of the ??? actors in our filtered database, we chose to use Support Vector Machines to predict the fame of the remaining actors, based on several features such as ???
+To compliment this time fluctuating indicator, a second actor popularity metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 1500 most popular American actors, as the percentage of people in the United States who have heard of them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
+Since this measurement only applies to 1500 actors out of the 5000 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
+
+The features used to predict fame were the following: 
+- number of actor movies
+- gender
+- movie budget 
+...
 
 Define the features (Yasmin)
-
 ### Add plot that shows the importance of features in predicting the fame
-
-Explain which features best explain the fame metric. We want to analyze them (budget)
-
-A part from the popularity indicators, an actor success can also be defined as the number of awards he or she has received. And what more prestigious than an Oscar? Since 1929, Oscars have been recognizing excellence in cinematic achievements. We retrieved the nomination and awards winnings data from the Oscars for each actor in our dataset. 
-
-- Golden Globe award
-- Critic's Choice award
-Explain principle of those awards
-added weight of 2 for the best actor and for the wins of oscars
+As can be seen on the figure above, a part from the number of movies, features like actor gender or movie budget seem to impact fame. We will have to explore their impact.
 
 
-Final metric add forumula
-(weighted sum or different metric  awards and popularity)
-Explain how fame and popularity balance each other
-Added different weight on each factor based on their perceived importance. 
-Explain higher weight for awards because sucess gap between no award and 1 award should be greater than between 1 and 2 awards
+A part from the popularity indicators, an actor success can also be defined as the number of awards he or she has received. Consequently, we retrieved data from several organizations: the Oscars, the Golden Globe and the Critic's Choice, the idea being that a vast and varied amount of awards data would best represent the success of actors. The account of each award was aggregated using a weighted sum.
+The Oscars, presented by the Academy of Motion Picture Arts and Sciences, are considered as the most prestigious awards an actor could receive and have been recognizing excellence in cinematic achievements ince 1929. We accounted for both the nominations and the wins.
+The Golden Globe awards are presented by the Hollywood Foreign Press Association, and though they are highly regarded, they don't equal the prestige of the awards.
+As for the Critic's Choice, the awards receivers are chosen by the the members of the Critic's Choice Association, which includes journalists and film critics. Those awards may not hold the same historical significance as the Oscars, yet they provide a broad perspective on the film industry and are known for recognizing achievements in movies. 
 
-### Add other awards (Golden Globes Awards, Critics' Choice Awards)?
+The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award. 
+$$ awards = 2*oscar_wins + oscar_nomination + 2*$$
+### Adapt formula
+### How many actors in each awards dataset
 
-### Add plot that shows new popularity
-### Add complete formula for the success metric
+The final success score is computed as follow:
+
+$$Success = fame + popularity + \sqrt{awards} $$
+
+It aims to be a representation of the cumulative success gained by an actor throughout his career. The weights on each factor are based on their perceived importance. The fame and popularity factors balance each other. The fame aims to be more representative of the overall recognition of an actor and is better isolated in time. However, this metric was available only for 30% of the actors. Thus, other techniques were used to predict it for the rest of the data, which introduces some uncertainty. On the other hand, the popularity extracted from TmdB is directly measured for all actors but eventhough it was scaled in time, this metric was shown to fluctuate and might be influenced by short term factors. By combining those two measures with the awards, the goal is to provide a comprehensive and nuanced measure of an actor success, which will be at the core of our analysis. The formula uses the square root of the weighted sum of awards. With this representation, we make sure that the difference between 0 and 1 award is emphasized. The impact diminishes as the number of awards increases. 
+The plot below shows the distribution of the popularity metric for our Hollywood actor dataset.
+
+### Add success distribution
 
 
-## How to represent the timeline of an actor's career ?
 
-Our popularity score was computed partly based on scores sampled recently. It is a representation of the cumulative success throughout an actor career. Our goal is to understand how each role he played or the combination of those roles may have impacted this score. In fact, each career trajectory and the distribution of role features is unique for each actor. As a result, it would be poor choice to solely base our analysis on the average of those features, such as the average genre, average movie budget or average role importance. Instead, we need to consider the evolving of those features in time to truly understand their impact on success. For this reason, we decide to divide the career of actors based on the number of movies they played. 
-
-
-define time ranges
-3 datasets 
 
 ## What type of roles should you pick?
  
@@ -99,13 +109,12 @@ First let us have a look at the distribution of our popularity metric bashed on 
 
 
 
-analysis part on 5000 actors (hollywood filtering or lack of info on known movies in database)
 
 
-define trajectory => define time periods in trajectory (beginning, middle, end)
 
-### Is it best to divide in 3 groups for every actors or in N groups, N depending on the number of movies
 
+
+# Notes
 avg pop, avg rev, avg, 
 
 
@@ -124,7 +133,6 @@ divide based on equal time: 20, 40, rest
                         one for actor in end
 
 awards: sum them all, more weights for wins (*2) and more weights for best actor(*2)
-
 
 - reduce number of movies: remove movies where all (or N) actors have finished their career (last movie release date was more then 20 years ago) 
 - create 3 different datasets
