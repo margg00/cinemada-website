@@ -36,13 +36,13 @@ An actor success is a tricky metric to discover, considering every actor has its
 The popularity of an actor as computed by TmdB fluctuates in time and is impacted by the number of views for the day as well as the previous day score. If we look at the metric sampled recently and plot it against the release date of an actor most recent movie, it is clear that more recent movies produce more popular actors. 
 
 <div style="text-align: center;">
-  <iframe src="assets/plots/tmdb_actor_pop_recent_release.html" width="800" height="500"></iframe>
+  <img src="assets/plots/tmdb_actor_pop_recent_release.html" width="800" height="500"></img>
 </div>
 
 This can be related to the effect of trend. In fact, one can observe a huge peak in TmdB movie popularity in the very recent months.
 
 <div style="text-align: center;">
-  <iframe src="assets/plots/tmdb_movie_pop_release.html" width="800" height="500"></iframe>
+  <img src="assets/plots/tmdb_movie_pop_release.html" width="800" height="500"></img>
 </div>
 
 
