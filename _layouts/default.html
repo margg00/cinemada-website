@@ -8,11 +8,33 @@
 
     <link rel="stylesheet" href="{{ '/assets/css/styles.css?v=' | append: site.github.build_revision | relative_url }}">
     <meta name="viewport" content="width=device-width">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .wrapper {
+        max-width: 800px; /* Adjust this value as needed */
+        margin: 0 auto;
+        padding: 20px;
+      }
+      header {
+        text-align: center;
+      }
+      header img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
   </head>
   <body>
-    <img src="../assets/img/img.jpg" alt="Description of the image">
+    
     <div class="wrapper">
       <header>
+        <img src="../assets/img/img.jpg" alt="Description of the image">
         <h1>{{ site.title | default: site.github.repository_name }}</h1>
        
         <table>
