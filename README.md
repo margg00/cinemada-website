@@ -79,33 +79,91 @@ The plot below shows the distribution of the popularity metric for our Hollywood
 ### Add success distribution
 
 
+Now that we have defined what success is, let's dive in our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
+- importance of the role/character in the movie
+- main genre of movies played by the actor
+- budget of the movies
 
+We perform 3 independent analysis for each feature to help isolate their indivual effect and understand their unique contribution. Seperate analysis also makes it easier to interpret our results and to capture the potential interactions between the variables. This being said, let's dive in.
 
-## What type of roles should you pick?
+## Do lead roles contribute more to success compared to supporting roles??
  
-Depending on your experience as an actor, you might not be offered lead roles in big production studio movies right away. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
-To answer this question, we first 
+Depending on your experience as an actor, you might not be offered lead roles in big production studio right away. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
 
-gold data = plots + scripts 709 movies, 11668 characters (from filtered dataset 10k movies)
-eval set 94 / 792
-test set 94/791
+It seems reasonable to say lead role offer more visibility and recognition than supporting role or ensemble. But is it truly the case? Should you only prioritize lead roles or are smaller roles a better way to climb your way up the Hollywood ladder? 
 
-- distribution of actor popularity based on different percentage ranges of the script dedicated to a role
-- hypothesis testing
-- prediction:(GradientBoostingRegressor) predict popularity based on original features (age, genre, ethnicity, most recent release date,  Genres, production studio  ), then predict popularity based on those features + role importance (percentage of script)
-    - reduce the effect of confounding variables
+To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their career and the success metric we defined earlier. 
+
+To characterize role importance, we used movie scripts and exracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies of our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model and .... ?????
+
+Since we defined 3 stages in our actors career (Earlier Years, Mid-Career and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movies he played in during a particular phase of his career.
+
+First let us have a look at the distribution of success based on the average and standard deviation of role importance for each career time span.
+
+### Put 6 plots (avg and std for each career stage) with success and role importance
+
+We can observe that.....
+
+However, it would be naive to stop our analysis here. 
+
+In a second phase, we devised a statistical test and performed hypothesis testing to investigate the correlations between those three averages and standard deviations and our actor success metric. The null hypothesis we want to refute is the following: the role importance throughout all 3 stages of an actor career does not impact the overall success of an actor.
+We performed this test on the three actor datasets independently: 
+- young actors, in their early years, whose career span is less than 20 years
+- experienced actors, with 20 to 40 years of experience
+- very experienced actors in their Late-Career stage (40 years and plus)
 
 
+RESULTS HYPOTHESIS TESTING 1:
+RESULTS HYPOTHESIS TESTING 2:
+RESULTS HYPOTHESIS TESTING 3:
+
+Analyze results:
+
+
+To investigate further the effect of role importance and career stages on success, we used a Gradient Boosting Regression model to create two predictions of actor success:
+- one prediction based on all features (defined earlier) except for the role importance
+- one prediction based on all features including role importance
+
+For both models, we used the cross validation technique to determine if the difference in accuracy of the two models is significant. The accuracy of both models can be measured using the MSE (Mean Square Error) which is linked to the model performance as well as R-squared. R-squared measures the proportion of the variance of the success that can be explained by the dependent features.
+The two regression technique is interesting because it allows us to measure the impact of including or excluding a particular feature like role importance on the overall success metric.
+
+This analysis was also performed separately on the three actor datasets.
+
+RESULTS REGRESSION 1:
+RESULTS REGRESSION 2:
+RESULTS REGRESSION 3:
+
+PLOT RESULTS OF REGRESSION FOR BOTH MODELS
+Analyze results:
+
+
+
+
+## What role genres are more correlated to success?
+
+We performed a similar analysis (statistical test and Rregression analysis), this time considering the main genre of movies played by an actor during a specific stage of his career. Once again, the actors were analyzed separately, depending on the current stage of their career. 
+
+
+RESULTS HYPOTHESIS TESTING 1:
+RESULTS HYPOTHESIS TESTING 2:
+RESULTS HYPOTHESIS TESTING 3:
+
+
+RESULTS REGRESSION 1:
+RESULTS REGRESSION 2:
+RESULTS REGRESSION 3:
 
 ## What role plays the budget of movies in actor success ?
 
-Are high budget movies necessarly producing more popular actor? That's a question that should be answered. 
-First let us have a look at the distribution of our popularity metric bashed on the cumulative budget of the movie they played in.
+Are high budget movies necessarly producing more popular actor? That's a question that should also be answered. 
+First let us have a look at the distribution of our popularity metric bashed on the cumulative budget of the movie actors in our dataset played in during particular phases of their career.
 
-- plot dis of pop based on movie budget
-- correlatation analysis as above
-- regression analysis: Popularity=β0 +β1×Budget+β2×Importance+β3×(Budget×Importance)
-- separate 2 groups: one hot encoding of role importance (low percentage, high percentage)
+### Add 3 plots (success- cumulated movie budget)
+
+
+
+## Are women and men equally impacted?
+
 
 
 
