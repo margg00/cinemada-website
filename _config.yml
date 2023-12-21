@@ -1,11 +1,7 @@
 theme: jekyll-theme-cayman
 title: The Actor playbook
-show_downloads: True
-# navigation:
-#   - title: Home
-#     url: /
-  # - title: Example
-  #   url: example
+color_scheme: foo
+
 
 navbar-col: "#EAEAEA"
 navbar-text-col: "#404040"
@@ -19,3 +15,6 @@ footer-text-col: "#777777"
 footer-link-col: "#404040"
 footer-hover-col: "#0085A1"
 navbar-img: "/assets/img/img.jpg"
+
+
+footer_content: "EPFL©2023 CS-401 | Project made by Marguerite Benoist, ...."
