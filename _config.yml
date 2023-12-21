@@ -1,7 +1,10 @@
 theme: jekyll-theme-cayman
 title: The Actor playbook
-color_scheme: foo
-
+# navigation:
+#   - title: Home
+#     url: /
+  # - title: Example
+  #   url: example
 
 navbar-col: "#EAEAEA"
 navbar-text-col: "#404040"
