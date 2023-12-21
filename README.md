@@ -1,4 +1,6 @@
-# The Actor's Playbook: A Guide to Picking Roles for Hollywood Success
+# The Actor's Playbook: 
+# A Guide to Picking Roles 
+# for Hollywood Success
 
 Are you an aspiring Hollywood actor? Have you ever wondered durign a casting if this role was truly meant for you? If so, you have come to the right place. For every actor, the path to success is paved with strategic choices. Every role you choose might launch your career or derail it completely. It becomes hence crucial to understand the effect of succession of roles on Hollywood actors success.
 In this guide, we will explore the importance of role types (lead or secondary or essemble role) and how each can shape your future as an actor. Based on movie plot summaries and scripts, we will also uncover the significance of dialogues and screen time. The budget and financial scale of the movie projects are also aspects we will delve into.
@@ -12,13 +14,11 @@ So whether you're about to attend your first audition or looking to recalibrate 
 To perform this analysis, a combination of different datasets were used, the first being the CMU Movie Summary Corpus. It consists of a collection of 42,306 movie plot summaries extracted from Wikipedia, a medatada of 81,741 movies and 450,669 character/actor duos extracted from Freebase. 
 This data was merged with an additional movie and actor dataset from Tmdb website, providing supplementary information such as the movies budget, genres, vote count and vote average as well as movie and actor popularity. 
 
-The focus of our analysis being Hollywood industry, the movie database was filtered to remove any movies whose first language was not English.
-
-### How did we filter for Hollywood?
+The main part of our analysis being Hollywood movies, the movie database was filtered to remove any movies whose first language was not English.
 
 Furthemore, the actors dataset was also filtered to remove actors who have ended their career more than 20 years ago, in an attempt to keep the results are in line with actors of our generation. This guide should be relevent to the present industry landscape.
 
-After this filtering, ??? actors remain.
+After this filtering, 6585 actors remain.
 
 
 ## How to represent the timeline of an actor's career ?
@@ -32,21 +32,26 @@ The dataset can then be separated in 3: the young actors, still in their earlier
 
 ## How to measure an actor success?
 
-An actor success is a tricky metric to discover, considering the amount of variables that can influence it. 
+An actor success is a tricky metric to discover, considering every actor has its own interpretation of success . 
 The popularity of an actor as computed by TmdB fluctuates in time and is impacted by the number of views for the day as well as the previous day score. If we look at the metric sampled recently and plot it against the release date of an actor most recent movie, it is clear that more recent movies produce more popular actors. 
 
-### Plot tmdb actor pop- last release date
+<div style="text-align: center;">
+  <iframe src="assets/plots/tmdb_actor_pop_recent_release.html" width="800" height="500"></iframe>
+</div>
 
 This can be related to the effect of trend. In fact, one can observe a huge peak in TmdB movie popularity in the very recent months.
 
-### Plot tmdb movie pop- release date
+<div style="text-align: center;">
+  <iframe src="assets/plots/tmdb_movie_pop_release.html" width="800" height="500"></iframe>
+</div>
+
 
 To mitigate the effect of trend, the actor popularity metric was normalized using a "within group" z-score normailzation. Each actor improved popularity score is relative to the mean and standard deviation of the scores of actors whose most recent movie was released in the same year range.
 
 ### Plot improved tmdB actor pop
 
 To compliment this time fluctuating indicator, a second actor popularity metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 1500 most popular American actors, as the percentage of people in the United States who have heard of them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
-Since this measurement only applies to 1500 actors out of the 5000 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
+Since this measurement only applies to 1500 actors out of the 6835 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
 
 The features used to predict fame were the following: 
 - number of actor movies
@@ -65,7 +70,9 @@ The Golden Globe awards are presented by the Hollywood Foreign Press Association
 As for the Critic's Choice, the awards receivers are chosen by the the members of the Critic's Choice Association, which includes journalists and film critics. Those awards may not hold the same historical significance as the Oscars, yet they provide a broad perspective on the film industry and are known for recognizing achievements in movies. 
 
 The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award. 
-$$ awards = 2*oscar_wins + oscar_nomination + 2*$$
+$$ awards = 2*oscar_wins + oscar_nomination + 2*cc_act + 2* gg_act + cc_supp_act + gg_sup_acc$$
+where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations received by the Oscars, $cc_act$ and $gg_act$ are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and $cc_supp_act$ and $gg_sup_acc$ are the Best-Supporting Actors awards from the same organizations.
+
 ### Adapt formula
 ### How many actors in each awards dataset
 
