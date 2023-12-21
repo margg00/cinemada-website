@@ -6,7 +6,7 @@ show_downloads: True
 #     url: /
   # - title: Example
   #   url: example
-
+cover-img: "/assets/img/img.jpg"
 navbar-col: "#EAEAEA"
 navbar-text-col: "#404040"
 navbar-border-col: "#DDDDDD"
