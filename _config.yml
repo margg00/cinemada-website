@@ -1,6 +1,6 @@
-theme: jekyll-theme-minimal
-#title: The Actor's Playbook
-#description: 
+theme: jekyll-theme-cayman
+#title: ADA Template Website
+#description: A template website for ADA
 show_downloads: True
 # navigation:
 #   - title: Home
