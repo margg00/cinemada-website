@@ -139,23 +139,24 @@ First let us have a look at the distribution of success based on the average and
 
 ### Put 6 plots (avg and std for each career stage) with success and role importance
 
-We can observe that.....
+
+
+
 
 However, it would be naive to stop our analysis here. 
 
 In a second phase, we devised a statistical test and performed hypothesis testing to investigate the correlations between those three averages and standard deviations and our actor success metric. The null hypothesis we want to refute is the following: the role importance throughout all 3 stages of an actor career does not impact the overall success of an actor.
-We performed this test on the three actor datasets independently: 
-- young actors, in their early years, whose career span is less than 20 years
-- experienced actors, with 20 to 40 years of experience
-- very experienced actors in their Late-Career stage (40 years and plus)
-
 
 RESULTS HYPOTHESIS TESTING 1:
 RESULTS HYPOTHESIS TESTING 2:
 RESULTS HYPOTHESIS TESTING 3:
 
 Analyze results:
+All the p values associated with the correlation coefficients are way below 0.05. The correlations are statistically significant.
+On the left part of the graph, we observe a positive correlation between the average role importance and the overall sucess of an actor during the early stage of his or her career. In contrast, the correlation coefficient for the middle and end stages of the career are quite low.
+This is a clear indication that the type of role you choose in the first 20 years of your career are particularly important. Do not underestimate the impact those first roles might have on your fame and popularity a few decades down the line. The most successful actors seem to be the ones who played characters of high importance in movies. The screen time is thus a factor that should be maximized for the first movies of your career trajectory. Over this time period, the standard deviation is not very correlated with success, meaning taking roles of varied importance during those first years will probably not impact success. You shoud not be afraid of taking supporting or ensemble roles, as long as you incorporate some lead roles in the mix.
 
+The results appear different for the the mid and late stages of the career. Playing lead roles on average does not seem to have a big effect. However, we observe a correlation between the standard deviaiton and success, especially strong for the late career. We can therefore deduce that varying the type of roles (lead or secondary) in the later phases of your life seems important to maximize overall success. 
 
 To investigate further the effect of role importance and career stages on success, we used a Gradient Boosting Regression model to create two predictions of actor success:
 - one prediction based on all features (defined earlier) except for the role importance
@@ -195,11 +196,34 @@ RESULTS REGRESSION 3:
 Are high budget movies necessarly producing more popular actor? That's a question that should also be answered. 
 First let us have a look at the distribution of our popularity metric bashed on the cumulative budget of the movie actors in our dataset played in during particular phases of their career.
 
-### Add 3 plots (success- cumulated movie budget)
+Similarly to the other investigates features, let us first have a look at the distribution of success for varying budget average and standard deviation ranges. 
+
+<p align="center">
+  <img src="assets/plots/scatter_budget_1.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+<p align="center">
+  <img src="assets/plots/scatter_budget_2.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+<p align="center">
+  <img src="assets/plots/scatter_budget_3.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+
+Those simple scatter plot do not really clarify the situation. A low standard deviation in the early stage seems to be correlated with a higher success score.
+We need to investigate further to better understand the real influence of this feature.
+
+The Pearson Correlation might give us a clue at what is really going on.
+<p align="center">
+  <img src="assets/plots/cc_budget.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+
+All the correlation coefficients presented in the figure above are associated with a very low p-value, way under 0.05, which underlines the statistical significance of those results.
+
+Those results indicate a small correlation between the budget of movies an actor played in and his overall success. 
+Actor who play in high budget movie seem to become more successfull. It would thus be a good idea to compare movie budgets when deciding between two roles. The impact seems more pronounced during the Middle of an actor career. 
+
+Interestingly, playing in movies of varied budget seem to positively impact success after the first 20 years of one's career, even if the correlation is not the strongest. If you really wish to fully optimize success, you might also consider sticking to a higher range of movie budget, as a budget standard deviation is slightly negatively correlated with success. 
 
 
-
-## Are women and men equally impacted?
 
 
 
