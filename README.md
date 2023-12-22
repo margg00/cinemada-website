@@ -137,7 +137,7 @@ It seems reasonable to say lead role offer more visibility and recognition than 
 
 To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their careers and the success metric we defined earlier. 
 
-To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model. 
+To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model. Using movie script data built from web crawling, we were able to get reliable labels for how much screen time individual characters get in each movie. Combining this with our movie plot data, we trained a Large Language model that takes a movie plot and a character name as input and outputs the percentage of the movie that character is in. The model we used is the T5-large model, which is suitable to deal with various tasks. Our trained model performs comparably to ChatGPT-3.5 on this task, and publicly available on https://huggingface.co/Hyeongdon/t5-large-character_plot_portion 
 
 Since we defined 3 stages in our actor's career (Earlier Years, Mid-Career, and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movie he played in during a particular phase of his career.
 
@@ -166,21 +166,6 @@ All the p values associated with the correlation coefficients are way below 0.05
 On the left part of the graph, we observe a positive correlation between the average role importance and the overall sucess of an actor during every stage of his or her career. 
 This is a clear indication that the type of role you choose, even in the first 20 years of your career are particularly important to promote overall success. The most successful actors seem to be the ones who played characters of high importance in movies. The screen time is thus a factor that should be maximized for the first movies of your career trajectory. 
 Over every time period, the standard deviation is also highly correlated with success, meaning taking roles of varied importance all along your career will probably have a positive impact on success. You shoud not be afraid of taking supporting or ensemble roles, as long as you incorporate some lead roles in the mix.
-
-To investigate further the effect of role importance and career stages on success, we used a Gradient Boosting Regression model to create two predictions of actor success:
-- one prediction based on all features (defined earlier) except for the role importance
-- one prediction based on all features including role importance
-
-For both models, we used the cross-validation technique to determine if the difference in accuracy of the two models is significant. The accuracy of both models can be measured using the MSE (Mean Square Error) which is linked to the model performance as well as R-squared. R-squared measures the proportion of the variance of the success that can be explained by the dependent features.
-This double regression technique is interesting because it allows us to measure the impact of including or excluding a particular feature like role importance on the overall success metric.
-
-This analysis was also performed separately on the three actor career time periods.
-
-
-PLOT RESULTS OF REGRESSION FOR BOTH MODELS
-Analyze results:
-
-
 
 
 ## What role genres are more correlated to success?
