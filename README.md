@@ -96,10 +96,12 @@ As for the Critic's Choice, the awards receivers are chosen by the the members o
 
 The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award:
 
+$$
+\text{Awards} = 2 \cdot \text{oscar\_wins} + \text{oscar\_nomination} + 2 \cdot \text{cc\_act} + 2 \cdot \text{gg\_act} + \text{cc\_supp\_act} + \text{gg\_supp\_acc}
+$$
 
 <p align="center">
-  <img src="https://latex.codecogs.com/svg.image?&space;Awards=2*oscar\_wins&plus;oscar\_nomination&plus;2*cc\_act&plus;2*gg\_act&plus;cc\_supp\_act&plus;gg\_sup\_acc&space;" title="    
-Awards=2*oscar\_wins+oscar\_nomination+2*cc\_act+2*gg\_act+cc\_supp\_act+gg\_sup\_acc " />
+  <img src="https://latex.codecogs.com/svg.image?&space;Awards=2*oscar\_wins&plus;oscar\_nomination&plus;2*cc\_act&plus;2*gg\_act&plus;cc\_supp\_act&plus;gg\_sup\_acc&space;"  />
 </p>
 where oscar_wins and oscar_nomination are the number of wins and nominations received by the Oscars, cc_act and gg_act are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and cc_supp_act and gg_sup_acc are the Best-Supporting Actors awards from the same organizations.
 
