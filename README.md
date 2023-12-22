@@ -17,7 +17,7 @@ The main part of our analysis being Hollywood movies, the movie database was fil
 
 Furthemore, the actors dataset was also filtered to remove actors who have ended their career more than 20 years ago, in an attempt to keep the results are in line with actors of our generation. This guide should be relevent to the present industry landscape.
 
-After this filtering, 6585 actors remain.
+After this filtering, 6714 actors remain.
 
 
 ## How to represent the timeline of an actor's career ?
@@ -67,7 +67,7 @@ Comparing both plots y-axis, we can observe a reduced gap between popularity of 
 
 ### Fame
 To compliment this indicator, a second metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 1500 most famous American actors, as the percentage of people in the United States who have heard of them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
-This metric, by the way it was computed constitutes a more timeless representation of actor success, compared to popularity. However, since this measurement only applies to 1500 actors out of the 6835 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way all the actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
+This metric, by the way it was computed constitutes a more timeless representation of actor success, compared to popularity. However, since this measurement only applies to 1500 actors out of the 6835 in our filtered database, we chose to use Support Vector Regression (SVR) with polynomial, linear and rbf kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way all the actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
 
 The features of actors, used to predict fame were the following: 
 - career length
@@ -82,7 +82,7 @@ The features of actors, used to predict fame were the following:
 
 The box plots below show the importance of each feature in predicting this fame metric. Each plot corresponds to actors in certain stages of their career. 
 <p align="center">
-  <img src="assets/plots/fame_features.png" alt="Image Alt Text" width="1200" height="500">
+  <img src="assets/plots/fame_features.png" alt="Image Alt Text" width="1200">
 </p>
 
 After close inspection, some features seem to stand out. Career length, which can be considered as a measure of actor experience, is without any surprise an indicator of fame. A part from that, movie budget and role importance seem to also play a part. This will have to be investigated.
@@ -94,9 +94,13 @@ The Oscars, presented by the Academy of Motion Picture Arts and Sciences, are co
 The Golden Globe awards are presented by the Hollywood Foreign Press Association, and though they are highly regarded, they don't equal the prestige of the awards.
 As for the Critic's Choice, the awards receivers are chosen by the the members of the Critic's Choice Association, which includes journalists and film critics. Those awards may not hold the same historical significance as the Oscars, yet they provide a broad perspective on the film industry and are known for recognizing achievements in movies. 
 
-The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award. 
-$$ awards = 2*oscar_wins + oscar_nomination + 2*cc_act + 2* gg_act + cc_supp_act + gg_sup_acc$$
-where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations received by the Oscars, $cc_act$ and $gg_act$ are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and $cc_supp_act$ and $gg_sup_acc$ are the Best-Supporting Actors awards from the same organizations.
+The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award:
+
+$$
+\text{Awards} = 2 \cdot \text{oscar\_wins} + \text{oscar\_nomination} + 2 \cdot \text{cc\_act} + 2 \cdot \text{gg\_act} + \text{cc\_supp\_act} + \text{gg\_supp\_acc}
+$$
+
+where oscar_wins and oscar_nomination are the number of wins and nominations received by the Oscars, cc_act and gg_act are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and cc_supp_act and gg_sup_acc are the Best-Supporting Actors awards from the same organizations.
 
 <p align="center">
   <img src="assets/plots/awards.jpg" alt="Image Alt Text" width="600" height="400">
@@ -106,9 +110,11 @@ where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations
 
 The final success score is computed as follow:
 
-$$Success = fame + popularity + \sqrt{awards} $$
+$$
+\text{Success} = \text{fame} + \text{popularity} + \sqrt{\text{awards}}
+$$
 
-It aims to be a representation of the cumulative success gained by an actor throughout his career. The weights on each factor are based on their perceived importance. The fame and popularity factors balance each other. The fame aims to be more representative of the overall recognition of an actor and is better isolated in time. However, this metric was available only for 30% of the actors. Thus, other techniques were used to predict it for the rest of the data, which introduces some uncertainty. On the other hand, the popularity extracted from TmdB is directly measured for all actors but eventhough it was scaled in time, this metric was shown to fluctuate and might be influenced by short term factors. By combining those two measures with the awards, the goal is to provide a comprehensive and nuanced measure of an actor success, which will be at the core of our analysis. The formula uses the square root of the weighted sum of awards. With this representation, we make sure that the difference between 0 and 1 award is emphasized. The impact diminishes as the number of awards increases. 
+It aims to be a representation of the cumulative success gained by an actor throughout his career. The weights on each factor are based on their perceived importance. The fame and popularity factors balance each other. The fame aims to be more representative of the overall recognition of an actor and is better isolated in time. However, this metric was available only for 30% of the actors. Thus, other techniques were used to predict it for the rest of the data, which introduces some uncertainty. On the other hand, the popularity extracted from TmdB is directly measured for all actors but even though it was scaled in time, this metric was shown to fluctuate and might be influenced by short term factors. By combining those two measures with the awards, the goal is to provide a comprehensive and nuanced measure of an actor success, which will be at the core of our analysis. The formula uses the square root of the weighted sum of awards. With this representation, we make sure that the difference between 0 and 1 award is emphasized. The impact diminishes as the number of awards increases. 
 The plot below shows the distribution of the popularity metric for our Hollywood actor dataset.
 
 <p align="center">
@@ -116,28 +122,28 @@ The plot below shows the distribution of the popularity metric for our Hollywood
 </p>
 
 
-Now that we have defined what success is, let's dive in our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
-- importance of the role/character in the movie
-- main genre of movies played by the actor
-- budget of the movies
+Now that we have defined what success is, let's dive into our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
+- Importance of the role/character in the movie
+- Main genre of movies played by the actor
+- Budget of the movies
 
-We perform 3 independent analysis for each feature to help isolate their indivual effect and understand their unique contribution. Seperate analysis also makes it easier to interpret our results and to capture the potential interactions between the variables. This being said, let's dive in.
+We perform 3 independent analyses for each feature to help isolate their individual effect and understand their unique contribution. Separate analysis also makes it easier to interpret our results and to capture the potential interactions between the variables. This being said, let's dive in.
 
 ## Do lead roles contribute more to success compared to supporting roles??
  
-Depending on your experience as an actor, you might not be offered lead roles in big production studio right away. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
+Depending on your experience as an actor, you might not be offered lead roles in a big production studio immediately. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
 
 It seems reasonable to say lead role offer more visibility and recognition than supporting role or ensemble. But is it truly the case? Should you only prioritize lead roles or are smaller roles a better way to climb your way up the Hollywood ladder? 
 
-To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their career and the success metric we defined earlier. 
+To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their careers and the success metric we defined earlier. 
 
-To characterize role importance, we used movie scripts and exracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies of our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model and .... ?????
+To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model and .... ?????
 
-Since we defined 3 stages in our actors career (Earlier Years, Mid-Career and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movies he played in during a particular phase of his career.
+Since we defined 3 stages in our actor's career (Earlier Years, Mid-Career, and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movie he played in during a particular phase of his career.
 
-First let us have a look at the distribution of success based on the average and standard deviation of role importance for each career time span.
+First, let us have a look at the distribution of success based on the average and standard deviation of role importance for each career period.
 
-### Put 6 plots (avg and std for each career stage) with success and role importance
+### Put 6 plots (average and std for each career stage) with success and role importance
 
 
 
@@ -162,7 +168,7 @@ To investigate further the effect of role importance and career stages on succes
 - one prediction based on all features (defined earlier) except for the role importance
 - one prediction based on all features including role importance
 
-For both models, we used the cross validation technique to determine if the difference in accuracy of the two models is significant. The accuracy of both models can be measured using the MSE (Mean Square Error) which is linked to the model performance as well as R-squared. R-squared measures the proportion of the variance of the success that can be explained by the dependent features.
+For both models, we used the cross-validation technique to determine if the difference in accuracy of the two models is significant. The accuracy of both models can be measured using the MSE (Mean Square Error) which is linked to the model performance as well as R-squared. R-squared measures the proportion of the variance of the success that can be explained by the dependent features.
 The two regression technique is interesting because it allows us to measure the impact of including or excluding a particular feature like role importance on the overall success metric.
 
 This analysis was also performed separately on the three actor datasets.
@@ -179,7 +185,7 @@ Analyze results:
 
 ## What role genres are more correlated to success?
 
-We performed a similar analysis (statistical test and Rregression analysis), this time considering the main genre of movies played by an actor during a specific stage of his career. Once again, the actors were analyzed separately, depending on the current stage of their career. 
+We performed a similar analysis (statistical test and Regression analysis), this time considering the main genre of movies played by an actor during a specific stage of his career. Once again, the actors were analyzed separately, depending on the current stage of their careers. 
 
 
 RESULTS HYPOTHESIS TESTING 1:
@@ -191,11 +197,10 @@ RESULTS REGRESSION 1:
 RESULTS REGRESSION 2:
 RESULTS REGRESSION 3:
 
-## What role plays the budget of movies in actor success ?
+## What role does the budget of movies play in an actor's success?
 
-Are high budget movies necessarly producing more popular actor? That's a question that should also be answered. 
-First let us have a look at the distribution of our popularity metric bashed on the cumulative budget of the movie actors in our dataset played in during particular phases of their career.
-
+Are high-budget movies necessarily producing more popular actors? That's a question that should also be answered. 
+First, let us have a look at the distribution of our popularity metric based on the cumulative budget of the movie actors in our dataset played during particular phases of their careers.
 Similarly to the other investigates features, let us first have a look at the distribution of success for varying budget average and standard deviation ranges. 
 
 <p align="center">
@@ -222,7 +227,6 @@ Those results indicate a small correlation between the budget of movies an actor
 Actor who play in high budget movie seem to become more successfull. It would thus be a good idea to compare movie budgets when deciding between two roles. The impact seems more pronounced during the Middle of an actor career. 
 
 Interestingly, playing in movies of varied budget seem to positively impact success after the first 20 years of one's career, even if the correlation is not the strongest. If you really wish to fully optimize success, you might also consider sticking to a higher range of movie budget, as a budget standard deviation is slightly negatively correlated with success. 
-
 
 
 
