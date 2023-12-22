@@ -137,45 +137,45 @@ It seems reasonable to say lead role offer more visibility and recognition than 
 
 To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their careers and the success metric we defined earlier. 
 
-To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model and .... ?????
+To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model. 
 
 Since we defined 3 stages in our actor's career (Earlier Years, Mid-Career, and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movie he played in during a particular phase of his career.
 
 First, let us have a look at the distribution of success based on the average and standard deviation of role importance for each career period.
 
-### Put 6 plots (average and std for each career stage) with success and role importance
+<p align="center">
+  <img src="assets/plots/scatter_role_1.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+<p align="center">
+  <img src="assets/plots/scatter_role_2.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
+<p align="center">
+  <img src="assets/plots/scatter_role_3.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
 
-
-
-
-
+The visualization of the distribution alone does not necessarly indicate any major correlation between role importance and success. There seem to be a positive trend.
 However, it would be naive to stop our analysis here. 
 
 In a second phase, we devised a statistical test and performed hypothesis testing to investigate the correlations between those three averages and standard deviations and our actor success metric. The null hypothesis we want to refute is the following: the role importance throughout all 3 stages of an actor career does not impact the overall success of an actor.
 
-RESULTS HYPOTHESIS TESTING 1:
-RESULTS HYPOTHESIS TESTING 2:
-RESULTS HYPOTHESIS TESTING 3:
+<p align="center">
+  <img src="assets/plots/cc_role.jpg" alt="Image Alt Text" width="800" height="300">
+</p>
 
-Analyze results:
 All the p values associated with the correlation coefficients are way below 0.05. The correlations are statistically significant.
-On the left part of the graph, we observe a positive correlation between the average role importance and the overall sucess of an actor during the early stage of his or her career. In contrast, the correlation coefficient for the middle and end stages of the career are quite low.
-This is a clear indication that the type of role you choose in the first 20 years of your career are particularly important. Do not underestimate the impact those first roles might have on your fame and popularity a few decades down the line. The most successful actors seem to be the ones who played characters of high importance in movies. The screen time is thus a factor that should be maximized for the first movies of your career trajectory. Over this time period, the standard deviation is not very correlated with success, meaning taking roles of varied importance during those first years will probably not impact success. You shoud not be afraid of taking supporting or ensemble roles, as long as you incorporate some lead roles in the mix.
-
-The results appear different for the the mid and late stages of the career. Playing lead roles on average does not seem to have a big effect. However, we observe a correlation between the standard deviaiton and success, especially strong for the late career. We can therefore deduce that varying the type of roles (lead or secondary) in the later phases of your life seems important to maximize overall success. 
+On the left part of the graph, we observe a positive correlation between the average role importance and the overall sucess of an actor during every stage of his or her career. 
+This is a clear indication that the type of role you choose, even in the first 20 years of your career are particularly important to promote overall success. The most successful actors seem to be the ones who played characters of high importance in movies. The screen time is thus a factor that should be maximized for the first movies of your career trajectory. 
+Over every time period, the standard deviation is also highly correlated with success, meaning taking roles of varied importance all along your career will probably have a positive impact on success. You shoud not be afraid of taking supporting or ensemble roles, as long as you incorporate some lead roles in the mix.
 
 To investigate further the effect of role importance and career stages on success, we used a Gradient Boosting Regression model to create two predictions of actor success:
 - one prediction based on all features (defined earlier) except for the role importance
 - one prediction based on all features including role importance
 
 For both models, we used the cross-validation technique to determine if the difference in accuracy of the two models is significant. The accuracy of both models can be measured using the MSE (Mean Square Error) which is linked to the model performance as well as R-squared. R-squared measures the proportion of the variance of the success that can be explained by the dependent features.
-The two regression technique is interesting because it allows us to measure the impact of including or excluding a particular feature like role importance on the overall success metric.
+This double regression technique is interesting because it allows us to measure the impact of including or excluding a particular feature like role importance on the overall success metric.
 
-This analysis was also performed separately on the three actor datasets.
+This analysis was also performed separately on the three actor career time periods.
 
-RESULTS REGRESSION 1:
-RESULTS REGRESSION 2:
-RESULTS REGRESSION 3:
 
 PLOT RESULTS OF REGRESSION FOR BOTH MODELS
 Analyze results:
@@ -185,17 +185,27 @@ Analyze results:
 
 ## What role genres are more correlated to success?
 
-We performed a similar analysis (statistical test and Regression analysis), this time considering the main genre of movies played by an actor during a specific stage of his career. Once again, the actors were analyzed separately, depending on the current stage of their careers. 
+A part from the importance of a specific role in a movie, the genre assocatied to the movie might also be of influence. Many actors are known to play in specific genre, some are actions heros, some romantic leads? Was the choice of genre of their previous roles influence their success? How diversified should your role portfolio be?
+Should one stick to the same genre to be noticed by the public? 
+
+We decided to inspect the effect of movie genre during the career stages on actor success. 
+
+Let us first take a look at the distribution of our success metric depending on the main genre played by actors in a particular era of their career trajectory.
+<p align="center">
+  <img src="assets/plots/genre_box.jpg" alt="Image Alt Text" width="800" height="1200">
+</p>
+Some genre seem more correlated with success. To maximize fame and popularity, movies associated to the Action, Comedy and Drama genres are preferred. This result seems logical as many mainstream movies usually present a certain combinations of those genres.
+For the mid and late career, roles in Documentary movies seem particularly successful. The same can be said for the Comedy, Drama and Action trio. 
+The p values are all under 0.05, so those results are considered statistically significant.
 
 
-RESULTS HYPOTHESIS TESTING 1:
-RESULTS HYPOTHESIS TESTING 2:
-RESULTS HYPOTHESIS TESTING 3:
+To complement this analysis, another interesting feature to analyze is the variation of role genres. 
 
+<p align="center">
+  <img src="assets/plots/genre_dis.jpg" alt="Image Alt Text" width="800" height="400">
+</p>
 
-RESULTS REGRESSION 1:
-RESULTS REGRESSION 2:
-RESULTS REGRESSION 3:
+It seems clear that the high success metrics are obtained by actors in the prefered genre group, meaning actors who play in roles of specific genre all along their career. 
 
 ## What role does the budget of movies play in an actor's success?
 
@@ -232,61 +242,3 @@ Interestingly, playing in movies of varied budget seem to positively impact succ
 
 
 
-
-
-
-
-
-# Notes
-avg pop, avg rev, avg, 
-
-
-frq of movie, age beginning career, 
-divide number of movies 3 ranges with same n movies
-add features used for the regression of fame. Train using SVM, how features are correlated. polynomial kernel, trained on (80% test on 20% of 1500) then train on all 1500, predict for others
-We see that budget at beginning hot feature
-Number of movie high impact
-only use actors with high number of movies
-if use separation of trajectory, all actors seem to be at the end
-look at time span between last and first movie
-divide based on equal time: 20, 40, rest
-
-3 for fame for SVM prediction: one for actors in beginning
-                       one for actors in middle
-                        one for actor in end
-
-awards: sum them all, more weights for wins (*2) and more weights for best actor(*2)
-
-- reduce number of movies: remove movies where all (or N) actors have finished their career (last movie release date was more then 20 years ago) 
-- create 3 different datasets
-- try 3 different SVMS on 3 datasets
-- merge dataset back again
-- define popularity metric (success= fame + awards + popularity tmdb )
-- have final dataset: 
-  age beginning, 
-  avg_genre for 3 time periods,
-  gender,
-  progress in career (are there in the beginning, middle or end portion? )
-  avg_role_importance (avg_tmdb order for now) for 3 time periods,
-  std_role_importance
-  avg_budget for 3 time periods
-  std_budget for 3 time periods
-  our success metric
-  production studio for majority of movies in 3 time periods 
-
-
-
-
-
-
-df: 
-
-age beginning movie, time in career, tmdb order, 
-
-normalize features first
-
-explain balance fame + popularity: one best but extracted by hand, one time dependent but more reliable
-
-order: strong precision, low recall
-
-clip high order actors for now 
