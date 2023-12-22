@@ -82,7 +82,7 @@ The features of actors, used to predict fame were the following:
 
 The box plots below show the importance of each feature in predicting this fame metric. Each plot corresponds to actors in certain stages of their career. 
 <p align="center">
-  <img src="assets/plots/fame_features.png" alt="Image Alt Text" width="1200" height="500">
+  <img src="assets/plots/fame_features.png" alt="Image Alt Text" width="1200">
 </p>
 
 After close inspection, some features seem to stand out. Career length, which can be considered as a measure of actor experience, is without any surprise an indicator of fame. A part from that, movie budget and role importance seem to also play a part. This will have to be investigated.
