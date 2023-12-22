@@ -96,7 +96,9 @@ As for the Critic's Choice, the awards receivers are chosen by the the members o
 
 The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award:
 
-[comment]:<$$Awards = 2*oscar\_wins + oscar\_nomination + 2*cc\_act + 2* gg\_act + cc\_supp\_act + gg\_sup\_acc$$>
+$$
+Awards = 2*oscar\_wins + oscar\_nomination + 2*cc\_act + 2* gg\_act + cc\_supp\_act + gg\_sup\_acc
+$$ 
 
 <p align="center">
   <img src="https://latex.codecogs.com/svg.image?&space;Awards=2*oscar\_wins&plus;oscar\_nomination&plus;2*cc\_act&plus;2*gg\_act&plus;cc\_supp\_act&plus;gg\_sup\_acc&space;" title="    
@@ -112,7 +114,9 @@ where oscar_wins and oscar_nomination are the number of wins and nominations rec
 
 The final success score is computed as follow:
 
-[comment]:<$$Success = fame + popularity + \sqrt{awards}c$$>
+$$
+Success = fame + popularity + \sqrt{awards}
+$$
 
 It aims to be a representation of the cumulative success gained by an actor throughout his career. The weights on each factor are based on their perceived importance. The fame and popularity factors balance each other. The fame aims to be more representative of the overall recognition of an actor and is better isolated in time. However, this metric was available only for 30% of the actors. Thus, other techniques were used to predict it for the rest of the data, which introduces some uncertainty. On the other hand, the popularity extracted from TmdB is directly measured for all actors but even though it was scaled in time, this metric was shown to fluctuate and might be influenced by short term factors. By combining those two measures with the awards, the goal is to provide a comprehensive and nuanced measure of an actor success, which will be at the core of our analysis. The formula uses the square root of the weighted sum of awards. With this representation, we make sure that the difference between 0 and 1 award is emphasized. The impact diminishes as the number of awards increases. 
 The plot below shows the distribution of the popularity metric for our Hollywood actor dataset.
