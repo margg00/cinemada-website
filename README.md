@@ -27,45 +27,68 @@ Our goal thoughout this analysis is to understand how each role played by an act
 The career of an actor extends from the release date of the first movie he played in to the last movie. We choose to define the Early Years of the career as the first 20 years. The following 20 years (between year 21 and 40) constitute the Mid-Career and every other movie released after that are part of the actor Late-Career stage.
 The dataset can then be separated in 3: the young actors, still in their earlier years, the experienced actors in their Mid-Career and the very experienced actors in their Late-Career. During our analysis, we will consider those 3 career stages indepently.
 
-### Plot 
+The following plots show the career trajectory of 3 sampled actors: Zoe Lister-Jones, A.C Peterson and Jackie Chan. Each are in different stages of their career. The yellow range represents the Early years of the career, the orange the Mid-Career and the Red the Late-Career.
+
+<div style="text-align:center;">
+  <iframe src="traj_1.html" width="60%" height="400px"></iframe>
+</div>
+<div style="text-align:center;">
+  <iframe src="traj_2.html" width="60%" height="400px"></iframe>
+</div>
+<div style="text-align:center;">
+  <iframe src="traj_3.html" width="60%" height="400px"></iframe>
+</div>
+
+
+Red dots are movies in which the actor played a lead role, green dots a secondary role and black dot a smaller or ensemble role. Those categories were defined based on the portion of the movie in which the actor appeared. You'll find more explanations further down.
+
 
 
 ## How to measure an actor success?
 
+
+### Popularity
 An actor success is a tricky metric to discover, considering every actor has its own interpretation of success . 
 The popularity of an actor as computed by TmdB fluctuates in time and is impacted by the number of views for the day as well as the previous day score. If we look at the metric sampled recently and plot it against the release date of an actor most recent movie, it is clear that more recent movies produce more popular actors. 
 
 
 <p align="center">
-  <img src="assets/plots/tmdb_actor_pop_release.png" alt="Image Alt Text" width="600" height="300">
+  <img src="assets/plots/tmdb_actor_pop_release.jpg" alt="Image Alt Text" width="600" height="400">
 </p>
 
 
-
-This can be related to the effect of trend. In fact, one can observe a huge peak in TmdB movie popularity in the very recent months.
+This can be related to the effect of trend.
+To mitigate this effect, the actor popularity metric was normalized using a "within group" z-score normailzation. Each actor improved popularity score is relative to the mean and standard deviation of the scores of actors whose most recent movie was released in the same year range. You'll find below the distribution of the popularity metric post scaling.
 
 <p align="center">
-  <img src="assets/plots/tmdb_movie_pop_release.png" alt="Image Alt Text" width="650" height="300">
+  <img src="assets/plots/tmdb_actor_pop_release_2.jpg" alt="Image Alt Text" width="600" height="400">
 </p>
 
+Comparing both plots y-axis, we can observe a reduced gap between popularity of trendy and more dated actors. This now represents better the popularity an actor may have received in his career.
 
-To mitigate the effect of trend, the actor popularity metric was normalized using a "within group" z-score normailzation. Each actor improved popularity score is relative to the mean and standard deviation of the scores of actors whose most recent movie was released in the same year range.
+### Fame
+To compliment this indicator, a second metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 1500 most famous American actors, as the percentage of people in the United States who have heard of them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
+This metric, by the way it was computed constitutes a more timeless representation of actor success, compared to popularity. However, since this measurement only applies to 1500 actors out of the 6835 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way all the actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
 
-### Plot improved tmdB actor pop
-
-To compliment this time fluctuating indicator, a second actor popularity metric was added, published by YouGov. They provide nationally representative popularity scores.They define the fame of the 1500 most popular American actors, as the percentage of people in the United States who have heard of them. According to the Pew Research Center, their methodology "consistently outperformed" other online polling companies.  
-Since this measurement only applies to 1500 actors out of the 6835 in our filtered database, we chose to use Support Vector Machines with polynomial kernel to predict the fame of the remaining actors. This regression technique was trained on the   actors belonging to the Yougov dataset, to understand in what way actor features explain the Yougov fame metric. In a second testing phase, the fame was predicted on the rest of our actor data based on those very same features.
-
-The features used to predict fame were the following: 
-- number of actor movies
+The features of actors, used to predict fame were the following: 
+- career length
+- number of movies
 - gender
-- movie budget 
-...
+- TmdB scaled popularity
+- average TmdB movie popularity in each stage of the actor career
+- average and standard deviation of movie budget in each stage of the actor career
+- average and standard deviation of role importance per movie in each stage of the actor career (called order_0 here)
+- average and standard deviation of revenue per movie in each stage of the actor career
+- average and standard deviation of ImdB rating per movie in each stage of the actor career
 
-Define the features (Yasmin)
-### Add plot that shows the importance of features in predicting the fame
-As can be seen on the figure above, a part from the number of movies, features like actor gender or movie budget seem to impact fame. We will have to explore their impact.
+The box plots below show the importance of each feature in predicting this fame metric. Each plot corresponds to actors in certain stages of their career. 
+<p align="center">
+  <img src="assets/plots/fame_features.png" alt="Image Alt Text" width="1200" height="500">
+</p>
 
+After close inspection, some features seem to stand out. Career length, which can be considered as a measure of actor experience, is without any surprise an indicator of fame. A part from that, movie budget and role importance seem to also play a part. This will have to be investigated.
+
+### Awards 
 
 A part from the popularity indicators, an actor success can also be defined as the number of awards he or she has received. Consequently, we retrieved data from several organizations: the Oscars, the Golden Globe and the Critic's Choice, the idea being that a vast and varied amount of awards data would best represent the success of actors. The account of each award was aggregated using a weighted sum.
 The Oscars, presented by the Academy of Motion Picture Arts and Sciences, are considered as the most prestigious awards an actor could receive and have been recognizing excellence in cinematic achievements ince 1929. We accounted for both the nominations and the wins.
@@ -77,7 +100,7 @@ $$ awards = 2*oscar_wins + oscar_nomination + 2*cc_act + 2* gg_act + cc_supp_act
 where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations received by the Oscars, $cc_act$ and $gg_act$ are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and $cc_supp_act$ and $gg_sup_acc$ are the Best-Supporting Actors awards from the same organizations.
 
 <p align="center">
-  <img src="assets/plots/awards.jpg" alt="Image Alt Text" width="600" height="300">
+  <img src="assets/plots/awards.jpg" alt="Image Alt Text" width="600" height="400">
 </p>
 
 ### Final success score:
@@ -89,7 +112,9 @@ $$Success = fame + popularity + \sqrt{awards} $$
 It aims to be a representation of the cumulative success gained by an actor throughout his career. The weights on each factor are based on their perceived importance. The fame and popularity factors balance each other. The fame aims to be more representative of the overall recognition of an actor and is better isolated in time. However, this metric was available only for 30% of the actors. Thus, other techniques were used to predict it for the rest of the data, which introduces some uncertainty. On the other hand, the popularity extracted from TmdB is directly measured for all actors but eventhough it was scaled in time, this metric was shown to fluctuate and might be influenced by short term factors. By combining those two measures with the awards, the goal is to provide a comprehensive and nuanced measure of an actor success, which will be at the core of our analysis. The formula uses the square root of the weighted sum of awards. With this representation, we make sure that the difference between 0 and 1 award is emphasized. The impact diminishes as the number of awards increases. 
 The plot below shows the distribution of the popularity metric for our Hollywood actor dataset.
 
-### Add success distribution
+<p align="center">
+  <img src="assets/plots/success.png" alt="Image Alt Text" width="600" height="400">
+</p>
 
 
 Now that we have defined what success is, let's dive in our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
