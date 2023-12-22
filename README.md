@@ -29,13 +29,13 @@ The dataset can then be separated in 3: the young actors, still in their earlier
 The following plots show the career trajectory of 3 sampled actors: Zoe Lister-Jones, A.C Peterson and Jackie Chan. Each are in different stages of their career. The yellow range represents the Early years of the career, the orange the Mid-Career and the Red the Late-Career.
 
 <div style="text-align:center;">
-  <iframe src="assets/plots/traj_1.html" width="60%" height="400px"></iframe>
+  <iframe src="assets/plots/traj_1.html" width="100%" height="300px"></iframe>
 </div>
 <div style="text-align:center;">
-  <iframe src="assets/plots/traj_2.html" width="60%" height="400px"></iframe>
+  <iframe src="assets/plots/traj_2.html" width="100%" height="300px"></iframe>
 </div>
 <div style="text-align:center;">
-  <iframe src="assets/plots/traj_3.html" width="60%" height="400px"></iframe>
+  <iframe src="assets/plots/traj_3.html" width="100%" height="300px"></iframe>
 </div>
 
 
