@@ -181,10 +181,9 @@ Let us first take a look at the distribution of our success metric depending on 
 </p>
 Some genre seem more correlated with success. To maximize fame and popularity, movies associated to the Action, Comedy and Drama genres are preferred. This result seems logical as many mainstream movies usually present a certain combinations of those genres.
 For the mid and late career, roles in Documentary movies seem particularly successful. The same can be said for the Comedy, Drama and Action trio. 
-The p values are all under 0.05, so those results are considered statistically significant.
 
 
-To complement this analysis, another interesting feature to analyze is the variation of role genres. 
+To complement this analysis, another interesting feature to analyze is the variation of role genres. Between their eras of career, an actor can switch genre ("diverse genre" strategy), change genre once ("preferred genre" strategy) or, in opposite, just stick to main genre chosen during Early-Career ("single genre") 
 
 <p align="center">
   <img src="assets/plots/genre_dis.jpg" alt="Image Alt Text" width="800" height="400">
