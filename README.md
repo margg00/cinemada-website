@@ -116,24 +116,24 @@ The plot below shows the distribution of the popularity metric for our Hollywood
 </p>
 
 
-Now that we have defined what success is, let's dive in our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
-- importance of the role/character in the movie
-- main genre of movies played by the actor
-- budget of the movies
+Now that we have defined what success is, let's dive into our role analysis. We want to analyze the effect of three distinct features on the success score of Hollywood actors:
+- Importance of the role/character in the movie
+- Main genre of movies played by the actor
+- Budget of the movies
 
-We perform 3 independent analysis for each feature to help isolate their indivual effect and understand their unique contribution. Separate analysis also makes it easier to interpret our results and to capture the potential interactions between the variables. This being said, let's dive in.
+We perform 3 independent analyses for each feature to help isolate their individual effect and understand their unique contribution. Separate analysis also makes it easier to interpret our results and to capture the potential interactions between the variables. This being said, let's dive in.
 
 ## Do lead roles contribute more to success compared to supporting roles??
  
-Depending on your experience as an actor, you might not be offered lead roles in big production studio right away. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
+Depending on your experience as an actor, you might not be offered lead roles in a big production studio immediately. However, to build up to that point, the choice of the type of role can greatly impact your future success. 
 
 It seems reasonable to say lead role offer more visibility and recognition than supporting role or ensemble. But is it truly the case? Should you only prioritize lead roles or are smaller roles a better way to climb your way up the Hollywood ladder? 
 
-To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their career and the success metric we defined earlier. 
+To answer this question, let us analyze the correlation between the importance of roles played by actors in each of the 3 stages of their careers and the success metric we defined earlier. 
 
 To characterize role importance, we used movie scripts and extracted the portion of the script dedicated to a specific role. The higher the percentage, the more important the role. Since the scripts were available for only a portion of the movies in our dataset (around 10%), we used the plot summaries, which exist for every movie, to predict the portion dedicated to every character in the movie script. This was performed using Large Language Model and .... ?????
 
-Since we defined 3 stages in our actors career (Earlier Years, Mid-Career and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movie he played in during a particular phase of his career.
+Since we defined 3 stages in our actor's career (Earlier Years, Mid-Career, and Late-Career), we can use as features the average role importance for every stage, as well as the standard deviation associated. That is, we measure the average and standard deviation of the portion of the movie played by an actor considering every movie he played in during a particular phase of his career.
 
 First, let us have a look at the distribution of success based on the average and standard deviation of role importance for each career period.
 
