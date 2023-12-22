@@ -17,7 +17,7 @@ The main part of our analysis being Hollywood movies, the movie database was fil
 
 Furthemore, the actors dataset was also filtered to remove actors who have ended their career more than 20 years ago, in an attempt to keep the results are in line with actors of our generation. This guide should be relevent to the present industry landscape.
 
-After this filtering, 6585 actors remain.
+After this filtering, 6714 actors remain.
 
 
 ## How to represent the timeline of an actor's career ?
@@ -94,9 +94,15 @@ The Oscars, presented by the Academy of Motion Picture Arts and Sciences, are co
 The Golden Globe awards are presented by the Hollywood Foreign Press Association, and though they are highly regarded, they don't equal the prestige of the awards.
 As for the Critic's Choice, the awards receivers are chosen by the the members of the Critic's Choice Association, which includes journalists and film critics. Those awards may not hold the same historical significance as the Oscars, yet they provide a broad perspective on the film industry and are known for recognizing achievements in movies. 
 
-The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award. 
-$$ awards = 2*oscar_wins + oscar_nomination + 2*cc_act + 2* gg_act + cc_supp_act + gg_sup_acc$$
-where $oscar_wins$ and $oscar_nomination$ are the number of wins and nominations received by the Oscars, $cc_act$ and $gg_act$ are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and $cc_supp_act$ and $gg_sup_acc$ are the Best-Supporting Actors awards from the same organizations.
+The formula defining the general awards metric is simply a weighted sum, with more weight attributed to the wins than for the nominations. The weights also mirror the prestige and significance of each award:
+
+[comment]:<$$Awards = 2*oscar\_wins + oscar\_nomination + 2*cc\_act + 2* gg\_act + cc\_supp\_act + gg\_sup\_acc$$>
+
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?&space;Awards=2*oscar\_wins&plus;oscar\_nomination&plus;2*cc\_act&plus;2*gg\_act&plus;cc\_supp\_act&plus;gg\_sup\_acc&space;" title="    
+Awards=2*oscar\_wins+oscar\_nomination+2*cc\_act+2*gg\_act+cc\_supp\_act+gg\_sup\_acc " />
+</p>
+where oscar_wins and oscar_nomination are the number of wins and nominations received by the Oscars, cc_act and gg_act are the number of Best-Actor Awards received from the Critic's Choice and Golden Globe respectively, all genres combined, and cc_supp_act and gg_sup_acc are the Best-Supporting Actors awards from the same organizations.
 
 <p align="center">
   <img src="assets/plots/awards.jpg" alt="Image Alt Text" width="600" height="400">
